@@ -1,0 +1,45 @@
+<div class="dropzone" fxLayout="column">
+	<div class="dropzone__container">
+		<ngx-dropzone [multiple]="false" class="dropzone__dropzone" [(ngModel)]="nameFile"
+			accept=".xlsx, .csv, .xls, .png, .jpg, .jpg, .pdf" ngDefaultControl (change)="loadFile($event)">
+			<ngx-dropzone-label>
+				<span i18n>Arrastra el archivo aquí</span>
+				<br />
+				<span i18n>o</span>
+			</ngx-dropzone-label>
+			<ngx-dropzone-label class="dropzone__btn dropzone__btn--open-file">
+				<em class="fas fa-folder-open"></em>
+				<span i18n>Haz clic aquí para adjuntar el archivo</span>
+			</ngx-dropzone-label>
+			<ngx-dropzone-preview *ngFor="let f of dropfiles" [removable]="true" (removed)="onRemove(f)">
+				<ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+			</ngx-dropzone-preview>
+		</ngx-dropzone>
+	</div>
+	<div class="dropzone__note" *ngIf="showLabel !== 'false'">
+		<span>{{ messageAlert }}</span>
+	</div>
+	<div class="dropzone__btns">
+		<a class="dropzone__btn dropzone__btn--format" *ngIf="urlFile && idTemplate == 0" [href]="urlFile">
+			<button type="button" mat-stroked-button color="basic">
+				<mat-icon>file_download</mat-icon>
+				<span i18n>Descargar formato</span>
+			</button>
+		</a>
+		<button class="dropzone__btn dropzone__btn--format" mat-raised-button extended color="basic"
+			(click)="downloadFormat()" *ngIf="idTemplate != 0">
+			<mat-icon>file_download</mat-icon>
+			<span i18n>Descargar formato</span>
+		</button>
+		<button class="dropzone__btn dropzone__btn--submit" mat-raised-button extended color="primary"
+			(click)="uploadFile()" [disabled]="isDisabled" *ngIf="showButtonUpload !== 'false'">
+			<mat-icon>upload_file</mat-icon>
+			<span i18n>Enviar archivo</span>
+		</button>
+		<button class="dropzone__btn dropzone__btn--submit" mat-raised-button color="primary"
+			(click)="clickedCustomBtnAction()" [disabled]="isDisabled" *ngIf="isCustomizable">
+			<mat-icon>{{ customBtnIcon }}</mat-icon>
+			<span>{{ customBtnText }}</span>
+		</button>
+	</div>
+</div>

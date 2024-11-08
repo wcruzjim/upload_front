@@ -1,0 +1,27 @@
+.mt-2 {
+     margin-top: 20px;
+}
+
+
+.mb-2 {
+    margin-bottom: 20px;
+}
+
+
+  
+  .example-full-width {
+    width: 25%;
+  }
+
+  .example-box1 {
+    background: linear-gradient(to right, #2e357d, #666dbb, #2e357d);
+    color: white;
+  }
+  .example-box2 {
+    background: linear-gradient(to right, #2e7d32, #66bb6a, #2e7d32);
+    color: white;
+  }
+  
+  mat-icon{
+    color: white;
+  }

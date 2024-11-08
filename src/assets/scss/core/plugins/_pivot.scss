@@ -1,0 +1,287 @@
+// @import 'https://code.highcharts.com/css/highcharts.css';
+.pvtRendererArea {
+  padding: 5px;
+  opacity: 1;
+  max-height: 800px;
+  display: flex;
+  width: 100%;
+  height: 600px !important;
+  overflow: scroll;
+  vertical-align: middle;
+  margin-bottom: 0px !important;
+  margin-top: 0px !important;
+  max-width: 100%;
+  grid-area: container3;
+}
+.pvtAxisContainer {
+  width: 100%;
+  margin-right: 10px;
+  margin-bottom: 0px !important;
+  margin-top: 0px !important;
+  min-width: 170px;
+//   max-width: 200px !important;
+}
+.pvtAxisContainer:nth-child(1){
+    grid-area: container1;
+    // overflow: scroll;
+    z-index: 0;
+}
+.pvtAxisContainer:nth-child(2){
+    grid-area: container2;
+    // overflow: scroll;
+    z-index: 0;
+}
+// .pvtAxisContainer li {
+//     padding: 8px 6px;
+//     list-style-type: none;
+//     // cursor: move;
+//     width: 52px;
+// }
+
+
+.pvtUi {
+  color: none;
+  width: 100%;
+}
+
+.pvtUi > tr:nth-child(2) {
+    display: grid;
+    grid-template-areas:
+        'container1 container3 container3 container3 container3 container3'
+        'container2 container3 container3 container3 container3 container3';
+    grid-gap: 10px;
+}
+.pvtUi > tr:nth-child(1) {
+  display: grid;
+  width: 100%;
+  grid-template-areas:"c1 c2" "c3 c3";
+  td:nth-child(1){
+    grid-area: c1;
+    width: 100%;
+    margin-bottom: 0px;
+    margin-top: 0px;
+
+  }
+  td:nth-child(2){
+    grid-area: c2;
+    width: 100%;
+    display: flex;
+    flex-flow: row;
+    margin-bottom: 0px;
+    margin-top: 0px;
+
+  }
+  td:nth-child(3){
+    grid-area: c3;
+    width: 100%;
+    margin-bottom: 0px;
+    margin-top: 0px;
+
+  }
+  // td:nth-child(1),
+  // td:nth-child(2) {
+  //   width: 20%;
+  //   display: flex;
+  //   flex-flow: row;
+  //   margin-right: 5px;
+  //   justify-content: center;
+  // }
+}
+.pvtCols {
+  width: 60%;
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
+}
+
+$listPadding: 8px 0;
+$listItemPadding: 0 16px;
+$listItemHeight: 48px;
+$selectBorderColor: #888888;
+$selectItemHoverBackgroundColor: #eaeaea;
+
+@mixin shadow() {
+  box-shadow: 0 3px 10px #adadad;
+}
+
+.pvtAggregator-wrapper,.pvtRenderer-wrapper{
+  display: inline-block;
+  position: relative;
+  min-width: 150px;
+}
+
+.pvtAggregator-text, .pvtRenderer-text {
+  border: none;
+  border-bottom: 1px solid $selectBorderColor;
+  display: block;
+  //line-height: $listItemHeight;
+  max-height: $listItemHeight;
+  padding: 16px 24px 8px 0;
+  cursor: pointer;
+  &.pvtAggregator-text-empty {
+    color: #cccccc;
+  }
+}
+
+.pvtAggregator-caret, .pvtRenderer-caret {
+  position: absolute;
+  right: 8px;
+  top: 20px;
+  color: $selectBorderColor;
+}
+.pvtRowOrder,.pvtColOrder{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.pvtAggregator-list,.pvtRenderer-list {
+  user-select: none;
+  position: absolute;
+  transition: 0.25s ease;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: none;
+  list-style: none;
+  margin: 0;
+  padding: $listPadding;
+  background-color: white;
+  z-index: 900;
+  max-height: 300px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  @include shadow();
+  //border: 1px solid $selectBorderColor;
+  > .pvtAggregator-item,.pvtRenderer-item {
+    padding: $listItemPadding;
+    line-height: $listItemHeight;
+    cursor: pointer;
+    &:hover {
+      background-color: $selectItemHoverBackgroundColor;
+    }
+    &.pvtAggregator-item-active, &.pvtRenderer-item-active {
+      background: $selectItemHoverBackgroundColor;
+    }
+  }
+}
+.pvtAxisContainer li.pvtPlaceholder {
+    -webkit-border-radius: 5px;
+    padding: 3px 15px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    min-width: 110px;
+    max-width: 110px;
+    min-height: 25px;
+    max-height: 25px;
+    border: 1px dashed #aaa;
+}
+.pvtFilterBox {
+  width: 300px;
+  border: 1px solid gray;
+  background-color: #fff;
+  position: absolute;
+  text-align: center;
+  z-index: 5000000 !important;
+  left: -13px !important;
+}
+
+.highcharts-pie-series .highcharts-point {
+	stroke: #EDE;
+	stroke-width: 2px;
+}
+.highcharts-pie-series .highcharts-data-label-connector {
+	stroke: silver;
+	stroke-dasharray: 2, 2;
+	stroke-width: 2px;
+}
+
+.highcharts-figure, .highcharts-data-table table {
+    min-width: 320px; 
+    max-width: 600px;
+    margin: 1em auto;
+}
+
+.highcharts-data-table table {
+	font-family: Verdana, sans-serif;
+	border-collapse: collapse;
+	border: 1px solid #EBEBEB;
+	margin: 10px auto;
+	text-align: center;
+	width: 100%;
+	max-width: 500px;
+}
+.highcharts-data-table caption {
+    padding: 1em 0;
+    font-size: 1.2em;
+    color: #555;
+}
+.highcharts-data-table th {
+	font-weight: 600;
+    padding: 0.5em;
+}
+.highcharts-data-table td, .highcharts-data-table th, .highcharts-data-table caption {
+    padding: 0.5em;
+}
+.highcharts-data-table thead tr, .highcharts-data-table tr:nth-child(even) {
+    background: #f8f8f8;
+}
+.highcharts-data-table tr:hover {
+    background: #f1f7ff;
+}
+.novixTable{
+  display: block;
+  margin: 0 auto;
+}
+table.pvtTable{
+    box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 transparent, 0 3px 14px 2px rgba(0,0,0,.12);
+    border-bottom-color: rgba(0,0,0,.12);
+    color: rgba(0,0,0,.54);
+}
+.table.pvtTable tbody tr th, table.pvtTable thead tr th{
+  border-bottom:solid rgba(0,0,0,.12); 
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+}
+.table.pvtTable tbody tr th, table.pvtTable tbody tr td{
+  border-bottom-color: rgba(0,0,0,.12); 
+
+}
+.e-fieldlist-left{
+  display: none;
+}
+.e-pivotview .e-grid {
+    border-color: #e0e0e0;
+    width: 100% !important;
+}
+.e-pivotchart{
+  width: 100% !important;
+}
+.gridster{
+  background: transparent !important;
+}
+.configuration-items {
+  a{
+      font-size: 14px !important;
+  }
+}
+
+.mat-sort-header-container {
+  display: flex;
+  cursor: pointer;
+  justify-content: left;
+  align-items: center;
+}
+
+
+.gridster-card > .gridster-row, .gridster-card > .gridster-column{
+  // background-color: blue !important;
+  border-top: 1px solid transparent !important;
+  border-bottom: 1px solid transparent !important;
+  border-left: 1px solid transparent !important;
+  border-right: 1px solid transparent !important;
+}
+.actions_item button{
+  margin:  0 auto;
+}

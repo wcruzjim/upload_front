@@ -1,0 +1,61 @@
+<div [formGroup]="firstFormGroup">
+    <mat-form-field [appearance]="appearance" class="w-100">
+        <mat-label>{{title}}</mat-label>
+
+        <mat-select (openedChange)="openedChange($event)" [ngClass]="{'text-center':iconsValues}" formControlName="select" i18n-placeholder placeholder="{{title}}" [multiple]="multiple" #multiSelect (selectionChange)="sendDataItems($event.value)">
+            <mat-select-trigger *ngIf="iconsValues && iconsColor">
+                <em [ngStyle]="{'color':firstFormGroup.controls.select.value.color}" [class]="firstFormGroup.controls.select.value.name"></em>
+            </mat-select-trigger>
+            <mat-select-trigger *ngIf="iconsValues && !iconsColor">
+                <em [class]="firstFormGroup.controls.select.value.name"></em>
+            </mat-select-trigger>
+            <mat-option>
+                <ngx-mat-select-search i18n-placeholderLabel placeholderLabel="Buscar" [showToggleAllCheckbox]="showAllOption" (toggleAll)="toggleSelectAll($event)" [formControl]="bankMultiFilterCtrl">
+                </ngx-mat-select-search>
+            </mat-option>
+
+            <div *ngIf="virtualDOM">
+                <div class="virtual-scroll-selected">
+                    <div *ngFor="let bank of copyForm">
+                        <mat-option [value]="bank">
+                            <div *ngFor="let i of bank  | keyvalue">
+                                <div *ngIf="i.key==name && !iconsValues">{{i.value}}</div>
+                            </div>
+                        </mat-option>
+                    </div>
+                </div>
+    
+                <cdk-virtual-scroll-viewport itemSize="20" class="virtual-scroll">
+                    <div *cdkVirtualFor="let bank of filteredBanksMulti | async">
+                        <div *ngIf="!alreadySelectedVirtual.includes(bank.id)">
+                            <mat-option [value]="bank">
+                                <div *ngFor="let i of bank  | keyvalue">
+                                    <div *ngIf="i.key==name && !iconsValues">{{i.value}}</div>
+                                </div>
+                            </mat-option>
+                        </div>
+                    </div>
+                </cdk-virtual-scroll-viewport>
+            </div>
+
+            <div *ngIf="!virtualDOM">
+                <mat-option *ngFor="let bank of filteredBanksMulti | async" [value]="bank">
+                    <div *ngFor="let i of bank  | keyvalue">
+                        <div *ngIf="i.key==name && !iconsValues">{{i.value}}</div>
+                        <div *ngIf="i.key==name && iconsValues">
+                            <span fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="center center">
+                                <button *ngIf="iconsColor" mat-icon-button  [ngStyle]="{'backgroundColor':'#000'}">
+                                    <em [ngStyle]="{'color':bank.color}" [class]="i.value"></em>
+                                </button>
+                                <button *ngIf="!iconsColor" mat-icon-button color="primary">
+                                    <em [class]="i.value"></em>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </mat-option>
+            </div>
+        </mat-select>
+
+    </mat-form-field>
+</div>

@@ -1,0 +1,12 @@
+.virtual-scroll{
+    height: 250px;
+}
+
+.virtual-scroll-selected{
+    max-height: 100px;
+    overflow: overlay;
+}
+
+.hidden-options{
+    display: none;
+}

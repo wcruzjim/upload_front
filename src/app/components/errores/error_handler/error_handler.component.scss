@@ -1,0 +1,189 @@
+.dropzone {
+	&__btn {
+		border-radius: 0.5rem;
+		padding: 0.6rem;
+		justify-content: center;
+		margin: 0 auto;
+
+		&--open-file {
+			background-color: #54948c;
+			color: white;
+			display: flex;
+			gap: 0.5rem;
+			justify-content: center;
+			align-items: center;
+
+			&:hover {
+				background-color: #63a199;
+			}
+		}
+	}
+	&__container {
+		margin-top: 10px;
+	}
+}
+
+.errors {
+	&__close {
+		position: absolute;
+		top: 0;
+		right: 0;
+	}
+	&__main {
+		margin-top: 1rem;
+	}
+	&__title {
+		text-align: center;
+	}
+	&__kpis {
+		width: 100%;
+		display: flex;
+		flex-flow: row wrap;
+	}
+	&__table {
+		padding: 0.5rem;
+		max-height: 500px;
+		overflow-y: auto;
+	}
+}
+
+.kpi {
+	flex: 1 1 auto;
+	display: grid;
+
+	padding: 1rem;
+	margin: 0.5rem;
+	border-radius: 0.25rem;
+
+	text-align: center;
+
+	&__label,
+	&__value {
+		color: #fff;
+	}
+	&__label {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 0.25rem;
+	}
+	&__value {
+		font-size: 1.5em;
+	}
+	&__error {
+		background-color: var(--red-50);
+		box-shadow: 0px 0px 4px rgba(229, 57, 53, 1);
+
+		& mat-icon,
+		span {
+			color: var(--red-700);
+		}
+	}
+	&__success {
+		background-color: var(--green-50);
+		box-shadow: 0px 0px 4px rgba(0, 137, 123, 1);
+
+		& mat-icon,
+		span {
+			color: var(--green-700);
+		}
+	}
+	&__info {
+		background-color: var(--blue-50);
+		box-shadow: 0px 0px 4px rgba(0, 123, 255, 1);
+
+		& mat-icon,
+		span {
+			color: var(--blue-700);
+		}
+	}
+	&__warning {
+		background-color: var(--orange-50);
+		box-shadow: 0px 0px 4px rgba(255, 165, 0, 1);
+
+		& mat-icon,
+		span {
+			color: var(--orange-700);
+		}
+	}
+}
+
+table tbody {
+	display: block;
+	max-height: 65vh;
+	overflow-y: auto;
+}
+
+table thead,
+table tbody tr {
+	display: table;
+	width: 100%;
+	table-layout: fixed;
+}
+
+.etable {
+	margin-top: 1rem;
+	border-collapse: collapse;
+	border: 1px solid #dee2e6;
+
+	& tr:nth-child(even) {
+		background-color: #f9f9f9;
+	}
+
+	&__td,
+	&__th,
+	&__icons {
+		vertical-align: middle;
+		padding: 0.5rem;
+	}
+
+	&__td {
+		border-top: 1px solid #f9f9f9;
+		text-align: left;
+	}
+
+	&__th {
+		font-weight: bold;
+		background-color: #f9f9f9;
+		text-align: left;
+	}
+
+	& th:first-child button {
+		text-align: center;
+		vertical-align: middle;
+	}
+
+	& th:first-child,
+	& td:first-child {
+		width: 4rem;
+		text-align: center;
+	}
+
+	&__icons {
+		font-size: 1.5rem;
+		text-align: center;
+
+		mat-icon {
+			width: 1.5rem;
+			height: 1.5rem;
+		}
+
+		&--error {
+			color: var(--red-700);
+		}
+		&--success {
+			color: var(--green-700);
+		}
+		&--info {
+			color: var(--blue-700);
+		}
+		&--warning {
+			color: var(--orange-700);
+		}
+	}
+}
+
+mat-dialog-content {
+	max-height: 100%;
+	overflow: hidden;
+}

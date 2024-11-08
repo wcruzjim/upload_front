@@ -1,0 +1,38 @@
+<div class="d-flex justify-content-end">
+  <button class="modal-close" cdkFocusInitial>
+    <em class="material-icons">
+      close
+    </em>
+  </button>
+</div>
+<div class="f-modal-alert  d-flex justify-content-center w-100">
+  <div class="f-modal-icon  animate container-img" *ngIf="data.icon=='error'">
+    <div class="f-modal-fix"></div> 
+    <img class="logo-alert container-img" src="assets/img/warning.png" alt=""/>
+    <div style="background-image:url('assets/img/warning.png')"></div>
+  </div>
+  <div class="f-modal-icon  animate container-img" *ngIf="data.icon=='success'">
+    <div class="f-modal-fix"></div> 
+    <span class="f-modal-line f-modal-long animateSuccessLong"></span> 
+    <img class="logo-alert container-img" src="assets/img/logobienvenido.png" alt="" />
+    <div style="background-image:url('assets/img/logobienvenido.png')"></div>
+  </div>
+  <div class="f-modal-icon  animate container-img" *ngIf="data.icon=='warning'">
+    <div class="f-modal-fix"></div> 
+    <span class="f-modal-line f-modal-long animateSuccessLong"></span> 
+    <img class="logo-alert container-img" src="assets/img/warning.png" alt="" />
+    <div style="background-image:url('assets/img/logobienvenido.png')"></div>
+  </div>
+</div>
+<h1 mat-dialog-title class="d-flex justify-content-center title">{{data.title}}</h1>
+<div mat-dialog-content class="d-flex justify-content-center text-center">
+  <p *ngIf="data.type == 0">{{data.message}}</p>  
+</div>
+<div *ngIf="data.type == 1">
+  <ul >
+    <li *ngFor="let item of data.message">{{item}}</li>
+  </ul>
+</div>
+<div mat-dialog-actions class="d-flex justify-content-center pb-4 containerDialogActions">
+  <!-- <button mat-button [mat-dialog-close]="data" class="btn btn-info" cdkFocusInitial>Ok</button> -->
+</div>

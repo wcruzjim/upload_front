@@ -1,0 +1,48 @@
+<div class="d-flex justify-content-end">
+  <button [mat-dialog-close]="" class="modal-close" cdkFocusInitial>
+    <em class="material-icons">
+      close
+    </em>
+  </button>
+</div>
+<div class="f-modal-alert">
+  <div class="f-modal-icon f-modal-error animate" *ngIf="data.icon=='error'">
+    <span class="f-modal-x-mark">
+      <span class="f-modal-line f-modal-left animateXLeft"></span>
+      <span class="f-modal-line f-modal-right animateXRight"></span>
+    </span>
+    <div class="f-modal-placeholder"></div>
+    <div class="f-modal-fix"></div>
+  </div>
+  <div class="f-modal-icon f-modal-warning scaleWarning" *ngIf="data.icon=='warning'">
+    <span class="f-modal-body pulseWarningIns"></span>
+    <span class="f-modal-dot pulseWarningIns"></span>
+  </div>
+  <div class="f-modal-icon f-modal-success animate" *ngIf="data.icon=='success'">
+    <span class="f-modal-line f-modal-tip animateSuccessTip"></span>
+    <span class="f-modal-line f-modal-long animateSuccessLong"></span>
+    <div class="f-modal-placeholder"></div>
+    <div class="f-modal-fix"></div>
+  </div>
+</div>
+<h1 mat-dialog-title class="d-flex justify-content-center  msg-alert">{{data.title}}</h1>
+<div mat-dialog-content class="d-flex justify-content-center">
+  <h4>
+    {{data.message}}
+  </h4>
+</div>
+<form action="" method="get" [formGroup]="formComfirm">
+  <div class="row">
+
+    <div class="form-group label-floating col-md-12">
+      <mat-form-field class="example-full-width">
+        <input formControlName="document" matInput placeholder="{{'documento' | translate}}">
+      </mat-form-field>
+    </div>
+  </div>
+</form>
+<div mat-dialog-actions class="d-flex justify-content-center mb-2">
+  <button mat-button [mat-dialog-close]="false" class="btn btn-default">No simular</button>
+  <button mat-button [disabled]="formComfirm.invalid" [mat-dialog-close]="{status:true,data:formComfirm.value}"
+    class="btn btn-danger" cdkFocusInitial>Simular</button>
+</div>

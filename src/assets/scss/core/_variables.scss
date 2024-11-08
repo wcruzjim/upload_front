@@ -1,0 +1,124 @@
+@import "variables/colors";
+@import "variables/shadow";
+
+@import "variables/bootstrap-material-design-base";
+
+// Customized BS variables
+@import "variables/custom-forms";
+@import "variables/spacing";
+@import "variables/body";
+@import "variables/brand";
+@import "variables/buttons";
+@import "variables/card";
+@import "variables/code";
+@import "variables/dropdown";
+@import "variables/forms";
+@import "variables/list-group";
+@import "variables/nav";
+@import "variables/pagination";
+@import "variables/state";
+@import "variables/tables";
+@import "variables/tooltip";
+@import "variables/type";
+@import "variables/modals";
+
+// import their vars after customization for use below
+$enable-flex: true; // fully adopt flexbox layouts
+$enable-shadows: true; // enable shadows, set to false to turn off shadows
+
+
+@import "variables/layout";
+@import "variables/menu";
+@import "variables/drawer";
+@import "variables/snackbar";
+
+@import "variables/bootstrap-material-design";
+
+:root {
+	--font-size-12: 0.75rem;
+	--font-size-14: 0.875em;
+	--font-size-16: 1em;
+	--font-size-18: 1.125em;
+	--font-size-20: 1.25em;
+
+	--font-weight-700: 700;
+
+	--primary-color: #232f3e;
+
+	--teal-50: #f5faf9;
+	--teal-100: #daece9;
+	--teal-200: #b5d9d3;
+	--teal-300: #89bdb7;
+	--teal-400: #669996;
+	--teal-500: #31a09a;
+	--teal-600: #1f8481;
+	--teal-700: #1d6867;
+	--teal-800: #1a5655;
+	--teal-900: #1a4746;
+	--teal-950: #09292a;
+
+	--green-50: #f3fbf2;
+	--green-100: #e4f6e2;
+	--green-200: #c9edc5;
+	--green-300: #9ddd98;
+	--green-400: #6bc464;
+	--green-500: #4bb543;
+	--green-600: #368a2f;
+	--green-700: #2c6d28;
+	--green-800: #275724;
+	--green-900: #21481f;
+	--green-950: #0d270c;
+
+	--orange-50: #fffcea;
+	--orange-100: #fff5c5;
+	--orange-200: #ffeb85;
+	--orange-300: #ffda46;
+	--orange-400: #ffc71b;
+	--orange-500: #ffa500;
+	--orange-600: #e27c00;
+	--orange-700: #bb5502;
+	--orange-800: #984208;
+	--orange-900: #7c360b;
+	--orange-950: #481a00;
+
+	--red-50: #fef2f2;
+	--red-100: #ffe2e1;
+	--red-200: #ffc9c8;
+	--red-300: #ffa4a2;
+	--red-400: #fd6f6c;
+	--red-500: #f5423e;
+	--red-600: #e53935;
+	--red-700: #be1b17;
+	--red-800: #9d1a17;
+	--red-900: #821c1a;
+	--red-950: #470908;
+
+	--blue-50: #edfaff;
+	--blue-100: #d6f2ff;
+	--blue-200: #b5eaff;
+	--blue-300: #83dfff;
+	--blue-400: #48cbff;
+	--blue-500: #1eadff;
+	--blue-600: #068fff;
+	--blue-700: #007bff;
+	--blue-800: #085ec5;
+	--blue-900: #0d519b;
+	--blue-950: #0e315d;
+
+	--gray-50: #f6f6f6;
+	--gray-100: #e7e7e7;
+	--gray-200: #d1d1d1;
+	--gray-300: #b0b0b0;
+	--gray-400: #808080;
+	--gray-500: #6d6d6d;
+	--gray-600: #5d5d5d;
+	--gray-700: #4f4f4f;
+	--gray-800: #454545;
+	--gray-900: #3d3d3d;
+	--gray-950: #262626;
+
+    --app-text-color-secondary: #555;
+    --shift-text-color: #188882;
+    --box-shadow-color: rgba(0, 0, 0, 0.24);
+    --communications-font-size-span: 0.8em;
+}

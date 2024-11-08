@@ -1,0 +1,87 @@
+/*!
+
+ =========================================================
+ * Material Dashboard Angular - v2.3.0
+ =========================================================
+
+ * Product Page: https://www.creative-tim.com/product/material-dashboard-angular2
+ * Copyright 2018 Creative Tim (http://www.creative-tim.com)
+
+ * Designed by www.invisionapp.com Coded by www.creative-tim.com
+
+ =========================================================
+
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+ */
+//  @import "@angular/material/prebuilt-themes/purple-green.css";
+
+ @import "core/variables";
+ @import "core/mixins";
+ @import "node_modules/bootstrap/scss/bootstrap";
+
+
+ // Core Components
+ @import "core/buttons";
+ @import "core/checkboxes";
+ @import "core/radios";
+ @import "core/forms";
+ @import "core/input-group";
+ @import "core/images";
+ @import "core/navbar";
+ @import "core/alerts";
+ @import "core/type";
+ @import "core/tabs";
+ @import "core/tooltip";
+ @import "core/popover";
+ @import "core/dropdown";
+ @import "core/togglebutton";
+ @import "core/ripples";
+ @import "core/footers";
+ @import "core/sidebar-and-main-panel";
+ @import "core/fixed-plugin";
+ @import "core/tables";
+ @import "core/charts";
+ @import "core/misc";
+
+@import "core/cards";
+@import "core/cards/card-stats";
+@import "core/cards/card-profile";
+@import "core/cards/card-plain";
+
+//  //plugin scss
+ @import "core/plugins/animate";
+ @import "core/plugins/perfect-scrollbar";
+ @import "core/plugins/_pivot.scss";
+ @import "core/plugins/_gridster.scss";
+
+ @import "core/responsive";
+ @import "core/card-upload.scss";
+
+// @import "core/angular-modal.scss";
+@import '~ngx-draggable-resizer/css/ngx-draggable-resizer.css';
+/* Estilos scroll */
+::-webkit-scrollbar {
+    width: 7px;
+    height:7px;
+  }
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    border-radius: 10px;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888; 
+    border-radius: 10px;
+    
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #7b7b7b;
+     
+  }
+
+  

@@ -1,0 +1,296 @@
+<div fxLayout="row wrap" fxLayoutGap="10px grid" fxLayoutAlign="center center" class="animated fadeInDown" class="form-gray mb-2" [hidden]="hiddenOptionsGroupUpdate">
+    <div fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-sm="80" fxFlex.gt-mg="80" fxFlex.gt-lg="80">
+        <mat-button-toggle-group appearance="legacy" multiple *ngFor="let item of columnsGroups; let i = index" #toggleGroup="matButtonToggleGroup">
+            <mat-button-toggle value="{{item.name}}" checked="true" (change)="changeToggleColumnsGroup(i, $event, toggleGroup)">{{item.name}}</mat-button-toggle>
+        </mat-button-toggle-group>
+    </div>
+    <div fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-sm="20" fxFlex.gt-mg="20" fxFlex.gt-lg="20" fxLayoutAlign="end center">
+        <button mat-raised-button color="accent" *ngIf="showBtnUpdate == 'true'" [disabled]="disabledBtnUpdate" (click)="updateInputsTable()" i18n>Actualizar</button>
+    </div>
+</div>
+<div *ngIf="showSearch =='true'">
+	<div class="d-flex">
+		<div class="pull-left">
+			<mat-form-field appearance="outline">
+				<input name="txt_search_data" autocomplete="off" type="text" matInput (keyup)="applyFilter($event.target.value)" placeholder="{{ 'buscar' | translate}}">
+			</mat-form-field>
+		</div>
+		<!-- <div class="col-lg-1 pull-left d-flex align-items-center pt-2" *ngIf="exportData == 'true'">
+			<a [ngStyle]="{'cursor': 'pointer'}" (click)="sendExcel()" matTooltip='Descargar Excel' matTooltipClass="tooltip_custom">
+				<mat-icon> cloud_download</mat-icon>
+			</a>
+		</div> -->
+		<div class="col-lg-1 pull-left d-flex align-items-center pt-2" *ngIf="importData == 'true'">
+			<a [ngStyle]="{'cursor': 'pointer'}" (click)="uploadInfoCBZ()" [matTooltip]="importDataOption.tooltip" matTooltipClass="tooltip_custom">
+				<mat-icon > {{importDataOption.icon}}</mat-icon>
+			</a>
+		</div>
+
+		<div class="col-lg-1 pull-left d-flex align-items-center pt-2" *ngIf="enableEditingFields">
+			<a *ngIf="!isEditingField" [ngStyle]="{'cursor': 'pointer'}" (click)="startEditingMode()" matTooltip='Editar' matTooltipClass="tooltip_custom">
+				<mat-icon> edit</mat-icon>
+			</a>
+			<a *ngIf="isEditingField" [ngStyle]="{'cursor': 'pointer'}" (click)="showSaveEditedValuesComfirmation()" matTooltip='Editar' matTooltipClass="tooltip_custom">
+				<mat-icon> save</mat-icon>
+			</a>
+		</div>
+
+        <div class="col-lg-1 pull-left d-flex align-items-center pt-2" *ngIf="showMore">
+			<a *ngIf="showMoreConfiguration['currentStatus']=='less'" [ngStyle]="{'cursor': 'pointer'}" (click)="changeStatusAndEmitShowMore('more')" [matTooltip]='showMoreConfiguration["tooltipMore"]' matTooltipClass="tooltip_custom">
+				<mat-icon>{{showMoreConfiguration['iconMore']}}</mat-icon>
+			</a>
+			<a *ngIf="showMoreConfiguration['currentStatus']=='more'" [ngStyle]="{'cursor': 'pointer'}" (click)="changeStatusAndEmitShowMore('less')" [matTooltip]='showMoreConfiguration["tooltipLess"]' matTooltipClass="tooltip_custom">
+				<mat-icon>{{showMoreConfiguration['iconLess']}}</mat-icon>
+			</a>
+		</div>
+
+
+		<div class="col-lg-3 pull-left" *ngIf="selectAll == 'true'">
+			<button class='mr-2' mat-raised-button (click)="disableOrEnableAllOmision(12)">{{ 'habilitar' |
+				translate
+				}}</button>
+			<button mat-raised-button (click)="disableOrEnableAllOmision(11)">{{ 'deshabilitar' | translate
+				}}</button>
+		</div>
+		<!-- <div *ngIf="false" class="col-lg-8 pull-right d-flex justify-content-end align-items-center">
+			<button mat-mini-fab color="default" matTooltip='Seleccionar Campos' (click)="handleListFields()" aria-label="Example icon button with a menu icon">
+				<mat-icon>reorder</mat-icon>
+			</button>
+		</div> -->
+	</div>
+	<div class="row">
+	</div>
+</div>
+<div class="table-responsive" [ngClass]="{'max-height-table': sickyHeader && sickyHeader == 'true'}">
+    <table mat-table [dataSource]="dataSource" matSort [matSortDisabled]="matSortDisabled" aria-label="" [fixedLayout]="false" [class]="globalStyle?.theme" [ngClass]="{'zebra': globalStyle?.zebra}">
+        <ng-container *ngFor="let h of dataDisplayColumns; let i = index;" matColumnDef="{{h}}" 
+            [sticky]="skickyColumn && isSkickyColumn(h)">
+            <div *ngIf="h!='acciones'">
+                <div *ngIf="h !='selectElements' && h !='radioButtonElements'">
+
+                    <th scope="" mat-header-cell *matHeaderCellDef [ngStyle]="getGlobalStyleByColumn(h,{},true)">
+                        <div class="d-flex justify-content-center" [ngClass]="{'left-header':leftedColumns && isNumber(h), 'rotate-90':shouldRoutate(h)}">
+                            <span *ngIf="(tooltipHeaders && tooltipHeadersName && tooltipHeadersName.hasOwnProperty(h))" mat-sort-header [matTooltip]="tooltipHeadersName[h]" > 
+                                {{getNameColumni18n(h)}}
+                            </span>
+                            <span *ngIf="!(tooltipHeaders && tooltipHeadersName && tooltipHeadersName.hasOwnProperty(h))" mat-sort-header> 
+                                {{getNameColumni18n(h)}}
+                            </span>
+                        </div>
+                    </th>
+
+                    <td mat-cell [ngStyle]="getGlobalStyleByColumn(h,element,false)"
+                        [ngClass]="{ 'left-row':leftedColumns && isNumber(h), 'right-row':rightedColumns && isNumberRight(h) }"
+                        *matCellDef="let element, let j=index" 
+                        [style.background-color]="getParticularBackgorundStyle(h,element[h],element)"
+                        [matTooltip]="getParticularTooltipAndIconWithBackground(h, element, 1)"
+                        [style.max-width.px]="width">
+
+                        <div *ngIf="selectableColumns && isSelectable(h) then selecteableColumn else checkColumnAction">
+                        </div>
+
+                        <ng-template #checkColumnAction>
+                            <div *ngIf="columnActions && hasAction(h) then columnAction else checkSelect"></div>
+                        </ng-template>
+
+                        <ng-template #selecteableColumn>
+                            <mat-form-field appearance="outline" class="noPadding w-100">
+                                <select matNativeControl (change)="selectOptionRow(h, element, $event)">
+                                    <option
+                                        *ngFor="let valuesColumnsSelecteable of valuesColumnsSelecteablesPre[keySelected]"
+                                        [value]="valuesColumnsSelecteable.id"
+                                        [selected]="element[h] === valuesColumnsSelecteable.id">
+                                        {{valuesColumnsSelecteable.name }}</option>
+                                </select>
+                            </mat-form-field>
+                        </ng-template>
+
+                        <ng-template #checkSelect>
+                            <div *ngIf="inputTableColumns && isInput(h) then inputTableColumn else checkStyle"></div>
+                        </ng-template>
+
+                        <ng-template #inputTableColumn>
+                            <mat-form-field class="example-full-width w-100" appearance="outline">
+                                <input type="text" matInput #idValue (keyup)="inputOptionRow(h, element, idValue.value)" value="{{element[h]}}">
+                            </mat-form-field>
+                        </ng-template>
+
+                        <ng-template #columnAction>
+                            <button mat-flat-button [matTooltip]="columnActionTooltip ? element[h] : ''" 
+                            [ngClass]="{'w-100':getActionProperty(h,'w100')}" 
+                            [style.background-color]="getActionProperty(h,'color')" 
+                            [ngStyle]="getActionProperty(h,'style', element )" 
+                            (click)="actionColumnEmit(h,element)">
+                                <span *ngIf="getActionProperty(h,'icon') != ''" [ngStyle]="{'color':getActionProperty(h,'iconStyle',element)}" class="action-column-text">
+                                    <a class="nav-link no-padding">
+                                        <em class="material-icons">{{getActionProperty(h,'icon',element)}}</em>
+                                    </a>
+                                </span>
+                                <span *ngIf="getActionProperty(h,'icon') == ''"
+                                    [ngStyle]="getActionProperty(h,'styleText', element )"
+                                    class="action-column-text">
+									{{element[h]}}
+                                </span>
+                            </button>
+                        </ng-template>
+
+                        <ng-template #checkStyle>
+                            <div *ngIf="specificStyleByColumn then styledColumn else checkBackgroundStyle"></div>
+                        </ng-template>
+
+                        <ng-template #checkBackgroundStyle>
+                            <div *ngIf="specificBackgroundByColumnEvent && !haveIconWithBackground(h) then styledBackgroundColumn else checkBackgroundStyleIcon"></div>
+                        </ng-template>
+
+                        <ng-template #checkBackgroundStyleIcon>
+                            <div *ngIf="specificBackgroundByColumnEvent && haveIconWithBackground(h) then styledBackgroundColumnIcon else checkIcon"></div>
+                        </ng-template>
+
+                        <ng-template #checkIcon>
+                            <div *ngIf="columnsIcons && isColumnIcon(h) then iconColumn else checkIconColor"></div>
+                        </ng-template>
+
+                        <ng-template #checkIconColor>
+                            <div *ngIf="columnsIconColors && isColumnIconColor(h) then iconColumnColor else notStyledColumn">
+                            </div>
+                        </ng-template>
+
+						<ng-template #styledColumn>
+							<span *ngIf="!isEditingField" [ngStyle]="{'color':getParticularStyle(h,element[h],element)}">
+								<button mat-raised-button [ngStyle]="checkBtnStyleColumnAndElement(element)" [hidden]="checkBtnColumnAndElement(h, element)" (click)="actionBtnRow(h, element)">{{element[h]}}</button>
+								<div [hidden]="!checkBtnColumnAndElement(h, element)">{{element[h]}}</div>
+							</span>
+                            <span *ngIf="isEditingField && enableEditingFields">
+                                <input class="editable-input" maxlength="25" [id]="diego" [name]="'d'+ j + 'c' + i" type="text" matInput [value]="element[h]" (keyup)="behaviorExcel($event, j, i)">
+                            </span>
+                        </ng-template>
+
+                        <ng-template #styledBackgroundColumn>
+                            <span [hidden]="isEditingField && checkEditableColumnAndElement(h, element )" [ngStyle]="{'color':getParticularBackgorundStyleColor(h,element[h],element,2)}">
+								<button mat-raised-button [ngStyle]="checkBtnStyleColumnAndElement(element)" [hidden]="checkBtnColumnAndElement(h, element)" (click)="actionBtnRow(h, element)">{{element[h]}}</button>
+								<div [hidden]="!checkBtnColumnAndElement(h, element)">{{element[h]}}</div>
+                            </span>
+                            <span *ngIf="(isEditingField && enableEditingFields && checkEditableColumnAndElement(h, element))">
+                                <input  class="editable-input"  maxlength="25" [id]="diego" [name]="'d'+ j + 'c' + i" type="text" matInput [value]="element[h]" (blur)="changePropertyForEdditingMode($event.target.value, element, h, keyToTrackingEditingValues)" (keyup)="behaviorExcel($event, j, i)">
+                            </span>
+                        </ng-template>
+
+                        <ng-template #styledBackgroundColumnIcon>
+                            <span [hidden]="isEditingField && checkEditableColumnAndElement(h, element)" [ngStyle]="getParticularStyleIconWithBackground(h, element, 0)">
+                                <span [class]="getParticularTooltipAndIconWithBackground(h, element, 0)"></span>
+                            </span>
+                            <span *ngIf="(isEditingField && enableEditingFields && checkEditableColumnAndElement(h, element))">
+                                <input class="editable-input"  maxlength="25" [id]="diego" [name]="'d'+ j + 'c' + i" type="text" matInput [value]="element[h]" (blur)="changePropertyForEdditingMode($event.target.value, element, h, keyToTrackingEditingValues)" (keyup)="behaviorExcel($event, j, i)">
+                            </span>
+                        </ng-template>
+
+                        <ng-template #iconColumn>
+                            <span>
+                                <button mat-stroked-button color="primary">
+                                    <em [class]="element[h]"></em>
+                                </button>
+                            </span>
+                        </ng-template>
+
+                        <ng-template #iconColumnColor>
+                            <span>
+                                <button mat-stroked-button color="primary">
+                                    <em [ngStyle]="{'color':element[h]}" class="fa fa-paint-brush"></em>
+                                </button>
+                            </span>
+                        </ng-template>
+
+                        <ng-template #notStyledColumn>
+                            <span [hidden]="isEditingField && checkEditableColumnAndElement(h, element)">
+								<button mat-raised-button [ngStyle]="checkBtnStyleColumnAndElement(element)" [hidden]="checkBtnColumnAndElement(h, element)" (click)="actionBtnRow(h, element)">{{element[h]}}</button>
+								<div [hidden]="!checkBtnColumnAndElement(h, element)">{{element[h]}}</div>
+                            </span>
+                            <span *ngIf="(isEditingField && enableEditingFields && checkEditableColumnAndElement(h, element))">
+                                <input class="editable-input" maxlength="25" [id]="diego" [name]="'d'+ j + 'c' + i" type="text" matInput [value]="element[h]" (blur)="changePropertyForEdditingMode($event.target.value, element, h, keyToTrackingEditingValues)" (keyup)="behaviorExcel($event, j, i)">
+                            </span>
+                        </ng-template>
+
+                    </td>
+                </div>
+                <div *ngIf="h =='selectElements'">
+                    <th scope="" mat-header-cell *matHeaderCellDef>
+                        <mat-checkbox *ngIf="showSelectAll == 'true'" (change)="emitElementsChecked($event.checked,row,true)" [checked]="selection.hasValue() || isAllSelected()" i18n-matTooltip matTooltip="Seleccionar Todo">
+                        </mat-checkbox>
+                        <span *ngIf="selectAllName.length != 0" [ngStyle]="getGlobalStyleByColumn(h,{},true)">{{selectAllName}}</span>
+                    </th>
+                    <td mat-cell *matCellDef="let row">
+                        <mat-checkbox (click)="$event.stopPropagation()" [disabled]="disableElementCheck && row.disabled" (change)="emitElementsChecked($event.checked,row,false)" [checked]="selection.isSelected(row) || isCheckedIndividual(row)" [aria-label]="checkboxLabel(row)"
+                            [hidden]="row.hasOwnProperty('visibleCheck') && !row.visibleCheck">
+                        </mat-checkbox>
+                    </td>
+                </div>
+                <div *ngIf="h =='radioButtonElements'">
+                    <th scope="" mat-header-cell *matHeaderCellDef>
+                        <span i18n>Seleccionar</span>
+                    </th>
+                    <td mat-cell *matCellDef="let row">
+                        <mat-radio-button [name]="radioButtonName" [checked]="row?.checkedRow" (change)="emitRadioSelected(row)">
+                        </mat-radio-button>
+                    </td>
+                </div>
+            </div>
+
+            <div *ngIf="h =='acciones'">
+                <th scope="" mat-header-cell *matHeaderCellDef mat-sort-header class="actions_item" [ngStyle]="getGlobalStyleByColumn(h,{},true)"> {{actionsHeaderName | translate}}
+                </th>
+                <td mat-cell *matCellDef="let element;let i = index" [ngStyle]="getStylesActions(element)" class="actions">
+                    <div fxLayout="row wrap" style="display: flex;">
+
+                        <div *ngFor="let action of actions">
+                            <div [hidden]="getDisabledAction(element, action.id)" [ngStyle]="{'color':'white'}">111</div>
+                            <button 
+                                (click)="actionEmit(action,element,i)" 
+                                matTooltipClass="tooltip_custom" 
+                                matTooltip="{{getLabelAction(element, action.name) |  translate}}" 
+                                id="{{nameDatatable}}{{i}}" 
+                                *ngIf="action.view && !action.style && getDisabledAction(element, action.id)" 
+                                class="btn btn-fab" 
+                                [ngClass]="action.class" 
+                            >
+                                <a class="nav-link" style="color: white;">
+                                    <em class="material-icons">{{getIconAction(element, action.icon)}}</em>
+                                </a>
+                            </button>
+                            <button 
+                                (click)="actionEmit(action,element,i)" 
+                                matTooltipClass="tooltip_custom" 
+                                matTooltip="{{getLabelAction(element, action.name) |  translate}}" 
+                                id="{{nameDatatable}}{{i}}" 
+                                *ngIf="action.view && action.style && getDisabledAction(element, action.id)" 
+                                class="btn btn-fab " 
+                                [ngStyle]="{'background-color': getActionButtonColor(element, action['style'])}">                          
+                                <a class="nav-link">
+                                    <em class="material-icons">{{getIconAction(element, action.icon)}}</em>
+                                </a>
+                            </button>
+                        </div>
+                    </div>
+                    <div *ngIf="showModuleDesactivate">
+                        <div *ngIf="statusElement == 'true'">
+                            <button *ngIf="element.statusElement == 0" class="btn btn-fab  btn-danger" matTooltip="{{ 'habilitar' | translate}}" matTooltipClass="tooltip_custom" (click)="actionEmit({id:10},element,i)">
+                                <a class="nav-link">
+                                    <em class="material-icons">close</em>
+                                </a>
+                            </button>
+                            <button *ngIf="element.statusElement == 1" matTooltipClass="tooltip_custom" class="btn btn-fab  btn-success" matTooltip="{{ 'deshabilitar' | translate}}" (click)="actionEmit({id:10},element,i)">
+                                <a class="nav-link">
+                                    <em class="material-icons">done</em>
+                                </a>
+                            </button>
+                        </div>
+                    </div>
+                </td>
+            </div>
+
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: sickyHeader && sickyHeader == 'true'"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>
+<mat-paginator [hidden]="showPaginator != 'true'" [pageSizeOptions]="pageSize" showFirstLastButtons></mat-paginator>
+

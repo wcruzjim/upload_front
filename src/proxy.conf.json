@@ -1,0 +1,10 @@
+{
+    "/app_rest/*": {
+      "target": "http://localhost",
+      "changeOrigin" : true,
+      "secure": false
+    }
+  }
+
+
+ 

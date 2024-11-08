@@ -1,0 +1,42 @@
+<div mat-dialog-content>
+    <div fxLayout="row wrap" fxLayoutAlign="space-around center" fxLayoutGap="grid" class="mt-2 mb-2">
+        <div fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-sm="60" fxFlex.gt-mg="60" fxFlex.gt-lg="60">
+            <mat-card class="mt-15 no-padding">
+                <mat-card-content>
+                    <app-dragdropfile 
+                        url="UploadFile/addFiles"
+                        textMessage="Formatos permitidos: .xlsx, .csv, .xls, .png, .jpg, .jpg, .pdf"
+                        (emitResult)="resultUploadFile()"
+                    ></app-dragdropfile>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>
+<div class="main-wrapper right-menu-hover">
+    <mat-card class="card_dashboard height-all">
+        <mat-card-content class="mat-card-content">
+            <div class="mat-dialog-content-table mt-p-20">
+                <div fxLayout="column" class="thirdTableTitle">
+                    <div *ngIf="show_file_uploads">
+                        <app-tabla-cbz [exportData]="'true'" 
+                                        [pagePersonalized]="[15,20,25,30]" 
+                                        [leftedColumns]="personalLefted" 
+                                        [actions]="columnActions" 
+                                        (cambioValor)="showActionWorkTeam($event)"
+                                        [dataTable]="file_uploads"
+                                        [HiddensColumns]="HiddensColumns"
+                                        [globalStyle]="{'theme':'compact', 'zebra':true}">
+                        </app-tabla-cbz>
+                    </div>
+                    <div i18n *ngIf="!show_file_uploads" class="thirdTableTitle" fxLayout="row wrap" fxLayoutAlign="center" fxFlex="100" fxLayoutGap="10px">
+                        No hay información disponible, revise los filtros que se aplicaron
+                    </div>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card> 
+</div>
+
+
+  

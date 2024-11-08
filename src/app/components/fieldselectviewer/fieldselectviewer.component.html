@@ -1,0 +1,16 @@
+<h4 i18n>Seleccione los campos que desea mostrar</h4>
+<div class="pt-2 pb-2">
+  <mat-checkbox class="settings mr-2" [(ngModel)]="allInput" (change)="seletedAll($event.checked)">Seleccionar Todo</mat-checkbox>
+  <div *ngFor="let f of fields">
+    <mat-checkbox class="settings mr-2" [(ngModel)]="f.selected"></mat-checkbox>
+    <span>{{f.name | titlecase}}</span>
+  </div>
+</div>
+
+<div class="row pt-2 pb-2 justify-content-center">
+  <button mat-stroked-button color="primary"  [mat-dialog-close]="fields"  class="pt-1 pb-1">{{'aceptar'}}<em
+    class="material-icons mr-2 ml-2">
+    save
+  </em></button>
+  
+</div>

@@ -1,0 +1,6 @@
+<div>
+	<span i18n *ngIf="!hasCommunications"> No se encontró ningúna notificación </span>
+	<main *ngIf="hasCommunications">
+		<app-communications [communications]="communications"></app-communications>
+	</main>
+</div>

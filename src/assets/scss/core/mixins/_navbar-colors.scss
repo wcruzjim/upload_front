@@ -1,0 +1,25 @@
+@mixin navbar-colors($color, $link-color) {
+    color: $link-color;
+    background-color: $color !important;
+    @include shadow-navbar-color($color);
+
+    .dropdown-item:hover,
+    .dropdown-item:focus{
+      @include shadow-small-color($color);
+      background-color: $color;
+      color: $link-color;
+    }
+
+    .navbar-toggler{
+        .navbar-toggler-icon{
+            background-color: $link-color;
+        }
+    }
+
+}
+@mixin navbar-background($navbgr1,$navbgr2,$navbarboxshadow1,$navbarboxshadow2, $text-color) {
+    background: linear-gradient(20deg,$navbgr1, $navbgr2);
+    // background: $navbgr2
+    box-shadow: $navbarboxshadow1 0px 4px 20px 0px, $navbarboxshadow2 0px 3px 10px !important;
+    color: $text-color;
+}

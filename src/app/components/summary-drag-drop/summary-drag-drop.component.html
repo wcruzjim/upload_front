@@ -1,0 +1,33 @@
+<!-- <mat-dialog-content>
+    <div class="main-wrapper">
+        <div class="text-center title-summary">
+            <span i18n>
+                Resumen de información a cargar
+            </span>
+        </div>
+        <app-tabla-cbz [hidden]="!data || !data.data || data.data.length === 0" [dataTable]="dataTableSummary" exportData="false" class="w-90">
+            [HiddensColumns]="hiddenColumns" [leftedColumns]="leftedColumns">
+        </app-tabla-cbz>
+
+        <mat-card class="internalCard" *ngIf="data.data.length == 0" class="text-center" i18n>No hay resumen que mostrar
+        </mat-card>
+
+        <div *ngIf="data.hasSummary" class="w-100 mt-p-10" fxLayout="column" fxLayoutAlign="center center">
+            <mat-divider class="w-100"></mat-divider>
+            <span class="mt-p-10" i18n>
+                Resumen Total:
+            </span>
+            <div class="w-100 mt-p-5" fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+                <mat-chip-list>
+                    <mat-chip color="primary" selected *ngFor="let summary of data.summary">{{summary.key}}:
+                        {{summary.value}}</mat-chip>
+                </mat-chip-list>
+            </div>
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-raised-button color="primary" [mat-dialog-close]="{'accept':true}" cdkFocusInitial i18n>Aceptar</button>
+    <button mat-raised-button class="disable-color" [mat-dialog-close]="{'accept':false}"
+        cdkFocusInitial i18n>Cancelar</button>
+</mat-dialog-actions> -->

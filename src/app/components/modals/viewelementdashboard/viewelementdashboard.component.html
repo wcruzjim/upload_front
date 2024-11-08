@@ -1,0 +1,3 @@
+<app-pivotable *ngIf="item.type == 1" [dataOptions]="item" [width]="item.width" [data]="item.data" ></app-pivotable>
+<app-carddashcomponent *ngIf="item.type == 3" [dataOptions]="item.dataOptions"  [data]="item.data" [idelemento]="item.idelemento"></app-carddashcomponent>
+<app-tabla-cbz *ngIf="item.type == 4" [data]="item.data" width="100%" (cambioValor)="getDataAction($event)"></app-tabla-cbz>
